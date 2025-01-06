@@ -1,0 +1,8 @@
+vim.keymap.set("n","<C-Space>",":Neotree filesystem reveal left toggle<CR>")
+vim.keymap.set("n","<leader>e",":Neotree focus toggle<CR>")
+vim.keymap.set("n","<leader>ff",":Telescope find_files<CR>")
+vim.keymap.set("n","<leader>th",":Telescope colorscheme<CR>")
+vim.keymap.set("n","<leader>ft", vim.lsp.buf.format, {})
+vim.keymap.set("n", "<tab>", ":BufferLineCycleNext<CR>")
+vim.keymap.set("n", "<S-tab>", ":BufferLineCyclePrev<CR>")
+vim.keymap.set("n", "<A-1>", ":!python3 %<CR>", {noremap=true, silent = true})
