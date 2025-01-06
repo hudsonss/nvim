@@ -2,7 +2,6 @@ vim.cmd(" let mapleader = ' '")
 
 require ("preferences")
 require ("keymaps")
--- require ("lualine")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.ur or vim.loop).fs_stat(lazypath) then

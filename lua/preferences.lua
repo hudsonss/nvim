@@ -16,14 +16,19 @@ vim.keymap.set("n", "<C-S-q>", ":wa<CR>:q<CR>", { noremap = true, silent = true,
 -- Atalhos para manipular splits
 vim.keymap.set("n", "<C-w>h", "<C-w>h", { noremap = true, silent = true, desc = "Mover para o split da esquerda" })
 vim.keymap.set("n", "<C-w>l", "<C-w>l", { noremap = true, silent = true, desc = "Mover para o split da direita" })
-vim.keymap.set("n", "<C-w>j", "<C-w>j", { noremap = true, silent = true, desc = "Mover para o split abaixo" })
+        vim.keymap.set("n", "<C-w>j", "<C-w>j", { noremap = true, silent = true, desc = "Mover para o split abaixo" })
 vim.keymap.set("n", "<C-w>k", "<C-w>k", { noremap = true, silent = true, desc = "Mover para o split acima" })
 
 -- Atalho para fechar o split atual
 vim.keymap.set("n", "<C-w>c", "<C-w>c", { noremap = true, silent = true, desc = "Fechar o split atual" })
 
 -- Atalho para salvar e formatar o arquivo atual
-vim.keymap.set("n", "<C-f>", ":w<CR>:lua vim.lsp.buf.format()<CR>", { noremap = true, silent = true, desc = "Salvar e formatar o arquivo atual" })
+vim.keymap.set(
+	"n",
+	"<C-f>",
+	":w<CR>:lua vim.lsp.buf.format()<CR>",
+	{ noremap = true, silent = true, desc = "Salvar e formatar o arquivo atual" }
+)
 
 -- Configurações básicas
 vim.cmd("syntax enable")
@@ -40,4 +45,3 @@ set.title = true
 vim.cmd([[
   filetype plugin indent on
 ]])
-

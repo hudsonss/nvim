@@ -9,6 +9,9 @@ return {
             "L3MON4D3/LuaSnip",
             "saadparwaiZ1/cmp_luasnip",
             "rafamadriz/friendly-snippets",
+            "hrsh7th/cmp-buffer", -- Para autocompletar com base no conteúdo do buffer
+            "hrsh7th/cmp-path", -- Para autocompletar caminhos de arquivos
+            "hrsh7th/cmp-cmdline", -- Para autocompletar na linha de comando
         },
         config = function()
             local cmp = require("cmp")
