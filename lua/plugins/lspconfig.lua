@@ -1,63 +1,67 @@
 --[[
   LSP Config & Mason
   Este arquivo configura a inteligência de código (Language Server Protocol).
-  Mason: Gerencia a instalação de LSPs, linters e formatters.
-  LSPConfig: Conecta o Neovim aos servidores de linguagem instalados.
+  Consolidamos a configuração do Mason e LSPConfig aqui para garantir a ordem correta de carregamento.
 ]]
 return {
     {
-        "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup()
-        end,
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        dependencies = { "williamboman/mason.nvim" },
-        config = function()
-            require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "pyright" },
-                automatic_installation = true,
-            })
-        end,
-    },
-    {
         "neovim/nvim-lspconfig",
         dependencies = {
+            "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "hrsh7th/cmp-nvim-lsp",
         },
         config = function()
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            -- Importa os módulos necessários
+            local mason = require("mason")
             local mason_lspconfig = require("mason-lspconfig")
+            local lspconfig = require("lspconfig")
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            -- Configuração automática via Mason Handlers
-            -- Isso garante que todos os servidores instalados pelo Mason sejam configurados corretamente
-            mason_lspconfig.setup_handlers({
-                -- Handler padrão (para todos os servidores sem configuração específica)
-                function(server_name)
-                    require("lspconfig")[server_name].setup({
-                        capabilities = capabilities,
-                    })
-                end,
+            -- 1. Inicializa o Mason (Instalador)
+            mason.setup()
 
-                -- Configuração específica para Lua
-                ["lua_ls"] = function()
-                    require("lspconfig").lua_ls.setup({
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                diagnostics = {
-                                    globals = { "vim" },
+            -- 2. Inicializa o Mason-LSPConfig (Ponte)
+            mason_lspconfig.setup({
+                ensure_installed = { "lua_ls", "pyright" },
+                automatic_installation = true,
+            })
+
+            -- 3. Configura os Handlers (Isso substitui o setup manual de cada servidor)
+            -- Nota: Verificamos se 'setup_handlers' existe para evitar erros
+            if mason_lspconfig.setup_handlers then
+                mason_lspconfig.setup_handlers({
+                    -- Handler padrão: Configura qualquer servidor instalado que não tenha handler específico
+                    function(server_name)
+                        lspconfig[server_name].setup({
+                            capabilities = capabilities,
+                        })
+                    end,
+
+                    -- Handler específico para Lua
+                    ["lua_ls"] = function()
+                        lspconfig.lua_ls.setup({
+                            capabilities = capabilities,
+                            settings = {
+                                Lua = {
+                                    diagnostics = {
+                                        globals = { "vim" },
+                                    },
                                 },
                             },
-                        },
-                    })
-                end,
+                        })
+                    end,
+                    
+                    -- Adicione outros handlers específicos aqui se necessário...
+                })
+            else
+                -- Fallback caso mason-lspconfig esteja desatualizado ou com problemas
+                vim.notify("Aviso: setup_handlers não encontrado no mason-lspconfig. Configurando manualmente.", vim.log.levels.WARN)
                 
-                -- Se precisar de config específica para Python, adicione aqui:
-                -- ["pyright"] = function() ... end
-            })
+                -- Configuração manual de fallback
+                lspconfig.lua_ls.setup({ capabilities = capabilities })
+                lspconfig.pyright.setup({ capabilities = capabilities })
+            end
         end,
     },
 }
