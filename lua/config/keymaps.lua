@@ -25,6 +25,12 @@ map("n", "<C-S-q>", ":wa<CR>:q<CR>", { noremap = true, silent = true, desc = "Sa
 map("n", "<C-q>", ":q<CR>", { noremap = true, silent = true, desc = "Sair do Neovim" })
 
 -- =============================================================================
+-- Ajuda e Documentação
+-- =============================================================================
+-- <leader>?: Abre a lista de todos os atalhos configurados (via Telescope)
+map("n", "<leader>?", ":Telescope keymaps<CR>", { desc = "Ver lista de atalhos (Help)" })
+
+-- =============================================================================
 -- Janelas e Navegação
 -- =============================================================================
 
