@@ -7,6 +7,9 @@
 return {
     {
         "williamboman/mason.nvim",
+        cmd = "Mason",
+        keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+        build = ":MasonUpdate",
         config = function()
             require("mason").setup()
         end,
@@ -21,6 +24,7 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
+        tag = "v0.1.8", -- Pinning version to avoid breaking changes in master/nightly
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",

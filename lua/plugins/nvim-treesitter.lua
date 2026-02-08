@@ -5,15 +5,20 @@
 ]]
 return {
     "nvim-treesitter/nvim-treesitter",
+    version = false, -- last release is way too old and doesn't work on Windows
     build = ":TSUpdate",
-    main = "nvim-treesitter.configs", -- Define o módulo principal para setup
-    opts = {
-        -- Linguagens para instalar o suporte automaticamente
-        ensure_installed = {
-            "c", "lua", "vim", "vimdoc", "python", "javascript", "html", "java", "query", "markdown", "markdown_inline"
-        },
-        sync_install = false,
-        highlight = { enable = true },
-        indent = { enable = true },
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter-textobjects",
     },
+    config = function()
+        require("nvim-treesitter.configs").setup({
+            ensure_installed = {
+                "c", "lua", "vim", "vimdoc", "python", "javascript", "html", "java", "query", "markdown", "markdown_inline"
+            },
+            sync_install = false,
+            highlight = { enable = true },
+            indent = { enable = true },
+        })
+    end,
 }
