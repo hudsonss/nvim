@@ -28,7 +28,7 @@ map("n", "<C-q>", ":q<CR>", { noremap = true, silent = true, desc = "Sair do Neo
 -- Ajuda e Documentação
 -- =============================================================================
 -- <leader>?: Abre a lista de todos os atalhos configurados (via Telescope)
-map("n", "<leader>?", ":Telescope keymaps<CR>", { desc = "Ver lista de atalhos (Help)" })
+map("n", "<leader>?", ":Telescope keymaps<CR>", { desc = "Ajuda: Ver todos os atalhos" })
 
 -- =============================================================================
 -- Janelas e Navegação
