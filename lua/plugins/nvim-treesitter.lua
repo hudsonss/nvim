@@ -5,19 +5,15 @@
 ]]
 return {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate", -- Atualiza os parsers ao instalar/atualizar o plugin
-
-    config = function()
-        local configs = require("nvim-treesitter.configs")
-
-        configs.setup({
-            -- Linguagens para instalar o suporte automaticamente
-            ensure_installed = { 
-                "c", "lua", "vim", "vimdoc", "python", "javascript", "html", "java", "query", "markdown", "markdown_inline" 
-            },
-            sync_install = false,
-            highlight = { enable = true }, -- Habilita o destaque de sintaxe
-            indent = { enable = true }, -- Habilita indentação baseada na estrutura
-        })
-    end,
+    build = ":TSUpdate",
+    main = "nvim-treesitter.configs", -- Define o módulo principal para setup
+    opts = {
+        -- Linguagens para instalar o suporte automaticamente
+        ensure_installed = {
+            "c", "lua", "vim", "vimdoc", "python", "javascript", "html", "java", "query", "markdown", "markdown_inline"
+        },
+        sync_install = false,
+        highlight = { enable = true },
+        indent = { enable = true },
+    },
 }
