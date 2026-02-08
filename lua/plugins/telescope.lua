@@ -1,6 +1,11 @@
+--[[
+  Telescope
+  Um buscador fuzzy altamente extensível.
+  Permite procurar arquivos, palavras, commits, comandos e muito mais.
+]]
 return {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.8",
+    branch = "0.1.x",
     dependencies = { "nvim-lua/plenary.nvim" },
 
     config = function()
@@ -8,16 +13,14 @@ return {
             defaults = {
                 layout_strategy = "horizontal",
                 layout_config = {
-                    -- Ajusta a largura do explorador
-                    preview_width = 0.65, -- Define 65% da tela para o preview
-                    width = 0.8, -- Define 80% da largura da tela para o Telescope
-                    height = 0.9, -- Define 90% da altura da tela para o Telescope
+                    preview_width = 0.65, -- Define 65% da janela para o preview do arquivo
+                    width = 0.8, -- 80% da largura da tela total
+                    height = 0.9, -- 90% da altura da tela total
                 },
-                -- Outras configurações padrão aqui
             },
             pickers = {
                 colorscheme = {
-                    enable_preview = true,
+                    enable_preview = true, -- Mostra como o tema fica ao navegar pela lista
                 },
             },
         })

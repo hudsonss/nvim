@@ -1,28 +1,13 @@
-vim.cmd(" let mapleader = ' '")
+-- Carrega opções e configurações básicas
+require("config.options")
 
-require ("preferences")
-require ("keymaps")
+-- Carrega mapeamentos de teclas
+require("config.keymaps")
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.ur or vim.loop).fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	local out = vim.fn.system({"git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath})
-	if vim.v.shell_error ~= 0 then
-		vim.api.nvim_echo({
-			{ "Falha ao clonar lazy.nvim:\n", "ErrorMsg"},
-			{ out, "WarningMsg"},
-			{ "\nPressione qualquer tecla pra sair..." },
-		}, true, {})
-		vim.fn.getchar()
-		os.exit(1)
-	end
-end
-vim.opt.rtp:prepend(lazypath)
+-- Inicializa o gerenciador de plugins (Lazy.nvim) e carrega plugins
+require("config.lazy")
 
-require("lazy").setup({
-	spec = {
-		{ import = "plugins"},
-	},
-})
-
-vim.cmd("colorscheme monokai-pro")
+-- Define o esquema de cores (após carregar os plugins)
+-- Nota: Isso pode falhar na primeira execução se o tema ainda não estiver instalado.
+-- O Lazy geralmente lida bem com isso, mas é bom ter um fallback ou cmd silencioso.
+pcall(vim.cmd, "colorscheme monokai-pro")
